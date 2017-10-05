@@ -48,6 +48,7 @@ public class Paciente {
     public Paciente(){
     }
 
+
     public int getId(){
         return id;
     }

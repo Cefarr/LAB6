@@ -6,10 +6,14 @@
 package edu.eci.pdsw.samples.simpleview;
 
 import edu.eci.pdsw.persistence.impl.mappers.PacienteMapper;
+import edu.eci.pdsw.samples.entities.Consulta;
+import edu.eci.pdsw.samples.entities.Eps;
 import edu.eci.pdsw.samples.entities.Paciente;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -42,11 +46,29 @@ public class MyBATISExample {
     }
 
     /**
+
+        
+
      * Programa principal de ejempo de uso de MyBATIS
      * @param args
      * @throws SQLException 
      */
     public static void main(String args[]) throws SQLException {
+        
+        Consulta con=new Consulta();
+        Eps ep=new Eps();  
+        Paciente pa= new Paciente(132,"CC","cESAR", Date.valueOf("2016-12-12"),ep);
+        SqlSessionFactory sessionfact = getSqlSessionFactory();
+        SqlSession sqlss = sessionfact.openSession();
+        PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
+
+        List<Paciente> pacientes=pmapper.loadPacientes();
+        //pmapper.insertarPaciente(pa);
+        
+        for (int i=0; i<pacientes.size(); i++){
+            Paciente re=pacientes.get(i);
+            System.out.print("miremos"+re.getNombre());
+        }
         
     }
 
