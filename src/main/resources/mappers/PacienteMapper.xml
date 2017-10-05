@@ -33,7 +33,7 @@
     c.resumen,
     c.costo FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit
     </select>
-    <resultMap type='map' id='pacientesResutMap'>
+    <resultMap type='map' id='PacienteResult'>
             <id property='propiedad1' column='p.id'/>
             <result property='propiedad2' column='p.tipo_id'/>
             <result property='propiedad3' column='p.nombre'/>  
