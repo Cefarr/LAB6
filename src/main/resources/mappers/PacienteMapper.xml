@@ -23,7 +23,7 @@
     c.idCONSULTAS as idCONSULTAS, 
     c.fecha_y_hora as fecha_y_hora,
     c.resumen as resumen,
-    c.costo as costo FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit
+    c.costo as costo FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit where p.id=12313
     </select>
 
     <resultMap type='Paciente' id='PacienteResult'>
