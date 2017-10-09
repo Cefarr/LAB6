@@ -11,6 +11,9 @@
     <select parameterType="map" id="loadPacienteByID" resultMap="PacienteResult">
 
     </select> 
+    <insert id="insertPaciente">
+	INSERT into     
+    </insert>
     <select parameterType="map" id="loadPacientes" resultMap="PacienteResult">
         select
     
