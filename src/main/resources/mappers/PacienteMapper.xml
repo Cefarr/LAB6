@@ -12,11 +12,11 @@
 
     </select> 
     
-    <insert id="insertarPaciente">
-	INSERT into CM_PACIENTES (id,tipoId,nombre, fechaNacimiento,eps) values (#{id},#{tipoId},#{nombre}, #{fechaNacimiento}, #{eps})
+    <insert id="insertarPaciente" >
+	INSERT into CM_PACIENTES (id,tipo_id,nombre,fecha_nacimiento,EPS_nit) values (#{p.id},#{p.tipoId},#{p.nombre}, #{p.fechaNacimiento}, #{p.eps.nit})
     </insert>
     <insert id ="insertConsulta" useGeneratedKeys="true" keyProperty="con.id">
-        insert into CM_CONSULTAS (con,idp,tipoidp, costoc) vaulues (#{con},#{idp},#{tipoidp},#{costoc})
+        insert into CM_CONSULTAS (con,idp,tipoidp,costoc) vaulues (#{con},#{idp},#{tipoidp},#{costoc})
     </insert>
    
     <select parameterType="map" id="loadPacientes" resultMap="PacienteResult">
@@ -39,8 +39,8 @@
             <result property='nombre' column='nombre'/>  
             <result property='fechaNacimiento' column='fecha_nacimiento'/>
                          
-            <association property="id" javaType="Eps"></association>     
-            <collection property='id' ofType='Consulta' columnPrefix='detalle_'></collection>
+            <association property="eps" javaType="Eps"></association>     
+            <collection property='consultas' ofType='Consulta' columnPrefix='detalle_'></collection>
                  
     </resultMap>
     <resultMap type='Eps' id='IdEps'>
