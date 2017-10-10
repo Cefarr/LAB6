@@ -13,7 +13,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static java.awt.Event.INSERT;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -55,22 +62,39 @@ public class MyBATISExample {
      * @throws SQLException 
      */
     public static void main(String args[]) throws SQLException {
+        try{
+            String url="jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/bdprueba";
+            String driver="com.mysql.jdbc.Driver";
+            String user="bdprueba";
+            String pwd="bdprueba";
+                        
+            Class.forName(driver);
+            Connection conn=DriverManager.getConnection(url,user,pwd);
+            conn.setAutoCommit(false);
+            
+            
         
-        Consulta con=new Consulta();
-        Eps ep=new Eps();  
-        Paciente pa= new Paciente(132,"CC","cESAR", Date.valueOf("2016-12-12"),ep);
-        SqlSessionFactory sessionfact = getSqlSessionFactory();
-        SqlSession sqlss = sessionfact.openSession();
-        PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
+            Consulta con=new Consulta();
+            Eps ep=new Eps();        
+            Paciente pa= new Paciente(9999,"CC","Oscar", Date.valueOf("2016-12-12"),ep);
+            SqlSessionFactory sessionfact = getSqlSessionFactory();
+            SqlSession sqlss = sessionfact.openSession();
+            PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
+            List<Paciente> pacientes=pmapper.loadPacientes();
 
-        List<Paciente> pacientes=pmapper.loadPacientes();
-        //pmapper.insertarPaciente(pa);
-        
-        for (int i=0; i<pacientes.size(); i++){
-            Paciente re=pacientes.get(i);
-            System.out.print("miremos"+re.getNombre());
-        }
-        
+            registrarNuevoPaciente(pmapper, pa);
+            conn.commit();
+            
+            /**
+            //pmapper.insertarPaciente(pa);
+            for (int i=0; i<pacientes.size(); i++){
+                Paciente re=pacientes.get(i);
+                System.out.print("miremos"+re.getNombre());
+            }
+             */
+            }catch(Exception e){}
+
+
     }
 
     /**
@@ -78,7 +102,13 @@ public class MyBATISExample {
      * @param pmap mapper a traves del cual se hará la operacion
      * @param p paciente a ser registrado
      */
-    public void registrarNuevoPaciente(PacienteMapper pmap, Paciente p){
+    public static void registrarNuevoPaciente(PacienteMapper pmap, Paciente p){
+        
+        Consulta co=new Consulta(Date.valueOf("2016-12-12"),"Esta con mamoneria",1234);
+        pmap.insertarPaciente(p);
+        
+        pmap.insertConsulta(co, 9999, "CC", 90786);
+        
         
     }
     

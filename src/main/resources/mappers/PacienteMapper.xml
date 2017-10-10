@@ -16,13 +16,24 @@
     </insert>
     <insert id ="insertConsulta" useGeneratedKeys="true" keyProperty="con.id">
         insert into CM_CONSULTAS (con,idp,tipoidp, costoc) vaulues (#{con},#{idp},#{tipoidp},#{costoc})
+    </insert>
+    <insert id="registrarNuevoPaciente">
+        SqlSessionFactory sessionfact = getSqlSessionFactory();
+        SqlSession sqlss = sessionfact.openSession();
+        PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
+
+        insertarPaciente();
+        //realizar las operaciones
+        //...
+
+        //hacer commit
+        sqlSession.commit();	
         
         
     </insert>
     
     <select parameterType="map" id="loadPacientes" resultMap="PacienteResult">
         select
-    
     p.id ,
     p.tipo_id ,
     p.nombre ,
