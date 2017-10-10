@@ -11,8 +11,9 @@
     <select parameterType="map" id="loadPacienteByID" resultMap="PacienteResult">
 
     </select> 
-    <insert id="insertPaciente">
-	INSERT into CM_PACIENTES (id,tipoId,nombre, fechaNacimiento,epsNit) values (#{id},#{tipoId},#{nombre}, #{fechaNacimiento}, #{epsNit})
+    
+    <insert id="insertarPaciente">
+	INSERT into CM_PACIENTES (id,tipoId,nombre, fechaNacimiento,eps) values (#{id},#{tipoId},#{nombre}, #{fechaNacimiento}, #{eps})
     </insert>
     <insert id ="insertConsulta" useGeneratedKeys="true" keyProperty="con.id">
         insert into CM_CONSULTAS (con,idp,tipoidp, costoc) vaulues (#{con},#{idp},#{tipoidp},#{costoc})

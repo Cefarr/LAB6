@@ -70,13 +70,17 @@ public class MyBATISExample {
         PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
 
         registrarNuevoPaciente(pmapper, pa);
+        
         pmapper.insertarPaciente(pa);
+        /**
         List<Paciente> pacientes=pmapper.loadPacientes();
         for (int i=0; i<pacientes.size(); i++){
             Paciente re=pacientes.get(i);
             System.out.print("miremos"+re.getNombre());
         }
-        sqlSession.commit();        
+        * */
+        sqlss.commit();
+         
                 //conn.close();         
         }
     /**
@@ -89,7 +93,7 @@ public class MyBATISExample {
         Consulta co=new Consulta(Date.valueOf("2016-12-12"),"Esta con mamoneria",1234);
         pmap.insertarPaciente(p);
         
-        //pmap.insertConsulta(co, 9999, "CC", 90786);
+        pmap.insertConsulta(co, 9999, "CC", 90786);
 
         
     }
