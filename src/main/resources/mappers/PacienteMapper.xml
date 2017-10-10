@@ -17,21 +17,7 @@
     <insert id ="insertConsulta" useGeneratedKeys="true" keyProperty="con.id">
         insert into CM_CONSULTAS (con,idp,tipoidp, costoc) vaulues (#{con},#{idp},#{tipoidp},#{costoc})
     </insert>
-    <insert id="registrarNuevoPaciente">
-        SqlSessionFactory sessionfact = getSqlSessionFactory();
-        SqlSession sqlss = sessionfact.openSession();
-        PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
-
-        insertarPaciente();
-        //realizar las operaciones
-        //...
-
-        //hacer commit
-        sqlSession.commit();	
-        
-        
-    </insert>
-    
+   
     <select parameterType="map" id="loadPacientes" resultMap="PacienteResult">
         select
     p.id ,
@@ -43,7 +29,7 @@
     c.idCONSULTAS as idCONSULTAS, 
     c.fecha_y_hora as fecha_y_hora,
     c.resumen as resumen,
-    c.costo as costo FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit where p.id=12313
+    c.costo as costo FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit where p.id=9999
     </select>
 
     <resultMap type='Paciente' id='PacienteResult'>
