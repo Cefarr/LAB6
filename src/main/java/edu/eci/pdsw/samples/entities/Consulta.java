@@ -35,6 +35,7 @@ public class Consulta {
     
     
     public Consulta(Date fechayHora, String resumen,long costo) {        
+        this.id=0;
         this.fechayHora = fechayHora;
         this.resumen = resumen;
         this.costo=costo;
@@ -75,8 +76,6 @@ public class Consulta {
         this.costo = costo;
     }
     
-    
-
     @Override
     public String toString() {
         return "("+id+","+fechayHora+","+resumen+")"; //To change body of generated methods, choose Tools | Templates.

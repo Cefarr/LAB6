@@ -18,6 +18,11 @@
     <insert id ="insertConsulta" useGeneratedKeys="true" keyProperty="can.id">
         insert into CM_CONSULTAS (idCONSULTAS,fecha_y_hora,resumen,costo,PACIENTES_id,PACIENTES_tipo_id) values (#{can.id}, #{fechar}, #{resum}, #{costoc}, #{idp}, #{tipoidp})
     </insert>
+    <update id="actualizarPaciente" keyProperty="pa.id">
+        UPDATE CM_PACIENTES set nombre =#{pa.nombre},fecha_nacimiento=#{pa.fechaNacimiento}, EPS_nit=#{pa.eps.nit} WHERE id=#{pa.id}
+        
+    </update>
+        
    
     <select parameterType="map" id="loadPacientes" resultMap="PacienteResult">
         select

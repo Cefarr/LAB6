@@ -16,6 +16,7 @@ import java.sql.SQLException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -50,35 +51,20 @@ public class MyBATISExample {
     }
 
     /**
-
-        
-
      * Programa principal de ejempo de uso de MyBATIS
      * @param args
      * @throws SQLException 
      */
-    public static void main(String args[]) throws SQLException {
-        
-        //Consulta con=new Consulta();
+    public static void main(String args[]) throws SQLException, Exception {
+   
         Eps ep=new Eps("SaludTotal", "8456986");        
-        Paciente pa= new Paciente(21100089,"CC","ELERICK", Date.valueOf("2016-12-12"),ep);
+        Paciente pa= new Paciente(7,"CC","ELERICK1", Date.valueOf("2016-12-12"),ep);
         SqlSessionFactory sessionfact = getSqlSessionFactory();
         SqlSession sqlss = sessionfact.openSession();
         PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
-
         registrarNuevoPaciente(pmapper, pa);
-        
-        //pmapper.insertarPaciente(pa);
-        /**
-        List<Paciente> pacientes=pmapper.loadPacientes();
-        for (int i=0; i<pacientes.size(); i++){
-            Paciente re=pacientes.get(i);
-            System.out.print("miremos"+re.getNombre());
-        }
-        * */
+        actualizarPaciente(pmapper, pa);
         sqlss.commit();
-         
-                //conn.close();         
         }
     /**
      * Registra un nuevo paciente y sus respectivas consultas (si existiesen).
@@ -90,10 +76,36 @@ public class MyBATISExample {
         Consulta co=new Consulta(Date.valueOf("2016-12-12"),"Esta con mamoneria",1234);
         pmap.insertarPaciente(p);
         pmap.insertConsulta(co, p.getId(), co.getFechayHora(), p.getTipoId(), co.getResumen(), (int)co.getCosto());
-        //pmap.insertConsulta(co, 9999, "CC", 90786);
-
-        
+     
     }
+    /**
+     * @obj Actualizar los datos basicos del paciente, con sus respectivas consultas.
+     * @pre EL paciente p ya existe
+     * @param pmap mapper a traves del cial se hara la operacion.
+     * @param p Paciente ya registrado
+     */
     
+    public static void actualizarPaciente(PacienteMapper pmap, Paciente p) throws Exception{
+        try{
+
+            List<Consulta> con = new ArrayList<Consulta>();
+            con.add(new Consulta(Date.valueOf("2001-01-01"),"fRACTURA PENE",9878787));            
+            con.add(new Consulta(Date.valueOf("2999-05-25"),"fRACTURA hueso",9878787));                        
+            Eps ep=new Eps("Medimas","8456985");
+            Paciente prueb=p;
+            prueb.setNombre("El ÑERO ERICK");
+            prueb.setFechaNacimiento(Date.valueOf("2001-01-01"));
+            prueb.setEps(ep);
+            pmap.actualizarPaciente(prueb);
+            for (int i=0; i< con.size();i++){
+                Consulta o=con.get(i);
+                if(o.getId()==0){  
+                    pmap.insertConsulta(o, p.getId(), o.getFechayHora(), p.getTipoId(), o.getResumen(), (int)o.getCosto());
+                }
+            }    
+        }catch(Exception e){
+            throw new Exception("PACIENTE NO REGISTRADO");
+        }
+    }
     
 }
