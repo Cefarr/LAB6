@@ -61,7 +61,7 @@ public class MyBATISExample {
         
         //Consulta con=new Consulta();
         Eps ep=new Eps("SaludTotal", "8456986");        
-        Paciente pa= new Paciente(9840009,"CC","Olkscar", Date.valueOf("2016-12-12"),ep);
+        Paciente pa= new Paciente(21100089,"CC","ELERICK", Date.valueOf("2016-12-12"),ep);
         SqlSessionFactory sessionfact = getSqlSessionFactory();
         SqlSession sqlss = sessionfact.openSession();
         PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
@@ -89,7 +89,7 @@ public class MyBATISExample {
         
         Consulta co=new Consulta(Date.valueOf("2016-12-12"),"Esta con mamoneria",1234);
         pmap.insertarPaciente(p);
-        
+        pmap.insertConsulta(co, p.getId(), co.getFechayHora(), p.getTipoId(), co.getResumen(), (int)co.getCosto());
         //pmap.insertConsulta(co, 9999, "CC", 90786);
 
         

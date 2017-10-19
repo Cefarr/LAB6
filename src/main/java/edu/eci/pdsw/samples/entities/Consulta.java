@@ -44,7 +44,7 @@ public class Consulta {
     }
 
     public int getId() {
-        return id;
+        return (int)id;
     }
 
     public void setId(int id) {
